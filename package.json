@@ -1,0 +1,15 @@
+{
+  "name": "blank-bot",
+  "version": "0.5.0",
+  "description": "Bot to help the blank!",
+  "main": "blank.js",
+  "dependencies": {
+    "discord.js": "^12.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jay AKA J2K AKA Termin8or",
+  "license": "ISC"
+}
