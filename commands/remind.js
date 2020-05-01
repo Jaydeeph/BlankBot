@@ -1,9 +1,16 @@
 const { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message, args) => {
-	if (args.length < 3) {
+	if (args.length < 4) {
 		return message.channel.send('Incorrect arguments. Please use; !remind  @user 5 [s/m/h](second, minute, hour) you message goes here.');
 	}
+	if (!args[0].includes('@')) {
+		return message.channel.send('You need to tag a user or yourself!');
+	}
+	if (time > 86400 || time > 1440 || time > 24) {
+		return message.channel.send('Incorrect time. Please use time below 24 hours.');
+	}
+
 	const avatarEmbed = new MessageEmbed();
 	const isInteger = value => parseInt(value) == value;
 	const smh = args[2].toLowerCase();
@@ -11,7 +18,6 @@ exports.run = async (client, message, args) => {
 	let userMessage = '';
 	const authorName = message.author.username;
 	const reminderTagUser = args[0];
-
 	const deleteMessage = args[args.length - 1];
 
 	if (!isInteger(time)) {
@@ -19,21 +25,12 @@ exports.run = async (client, message, args) => {
 	}
 
 	if (smh === 's') {
-		if (time > 86400) {
-			return message.channel.send('Incorrect time. Please use time below 24 hours.');
-		}
 		time = Math.floor(time * 1000);
 	}
 	else if (smh === 'm') {
-		if (time > 1440) {
-			return message.channel.send('Incorrect time. Please use time below 24 hours.');
-		}
 		time = Math.floor(time * 60000);
 	}
 	else if (smh === 'h') {
-		if (time > 24) {
-			return message.channel.send('Incorrect time. Please use time below 24 hours.');
-		}
 		time = Math.floor(time * 6e+6);
 	}
 	else {
@@ -57,7 +54,6 @@ exports.run = async (client, message, args) => {
 	avatarEmbed.setDescription(`${reminderTagUser} ${userMessage}`);
 	avatarEmbed.setFooter(`Created by ${authorName}`);
 	avatarEmbed.setTimestamp();
-
 
 	setTimeout(function() {sendMessage(message, avatarEmbed);}, time);
 };
