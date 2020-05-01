@@ -1,13 +1,17 @@
+const { MessageEmbed } = require('discord.js');
+
 exports.run = async (client, message, args) => {
 	if (args.length < 3) {
 		return message.channel.send('Incorrect arguments. Please use; !remind  @user 5 [s/m/h](second, minute, hour) you message goes here.');
 	}
-
+	const avatarEmbed = new MessageEmbed();
 	const isInteger = value => parseInt(value) == value;
-	let time = args[1];
 	const smh = args[2].toLowerCase();
+	let time = args[1];
 	let userMessage = '';
-	const authorId = message.author.id;
+	const authorName = message.author.username;
+	const reminderTagUser = args[0];
+
 	const deleteMessage = args[args.length - 1];
 
 	if (!isInteger(time)) {
@@ -48,10 +52,14 @@ exports.run = async (client, message, args) => {
 		}
 	}
 
+	avatarEmbed.setColor('f65c78');
+	avatarEmbed.setTitle('**__Reminder:__**');
+	avatarEmbed.setDescription(`${reminderTagUser} ${userMessage}`);
+	avatarEmbed.setFooter(`Created by ${authorName}`);
+	avatarEmbed.setTimestamp();
 
-	const returnMessage = `<@${authorId}> ${userMessage}`;
 
-	setTimeout(function() {sendMessage(message, returnMessage);}, time);
+	setTimeout(function() {sendMessage(message, avatarEmbed);}, time);
 };
 
 function sendMessage(message, returnMessage) {
