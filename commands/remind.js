@@ -5,7 +5,7 @@ exports.run = async (client, message, args) => {
 
 	const isInteger = value => parseInt(value) == value;
 	let time = args[1];
-	const smh = args[2];
+	const smh = args[2].toLowerCase();
 	let userMessage = '';
 	const authorId = message.author.id;
 	const deleteMessage = args[args.length - 1];
