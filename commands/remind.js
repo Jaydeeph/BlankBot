@@ -1,0 +1,59 @@
+exports.run = async (client, message, args) => {
+	if (args.length < 3) {
+		return message.channel.send('Incorrect arguments. Please use; !remind  @user 5 [s/m/h](second, minute, hour) you message goes here.');
+	}
+
+	const isInteger = value => parseInt(value) == value;
+	let time = args[1];
+	const smh = args[2];
+	let userMessage = '';
+	const authorId = message.author.id;
+	const deleteMessage = args[args.length - 1];
+
+	if (!isInteger(time)) {
+		return message.channel.send('Incorrect time. Please use whole numbers.');
+	}
+
+	if (smh === 's') {
+		if (time > 86400) {
+			return message.channel.send('Incorrect time. Please use time below 24 hours.');
+		}
+		time = Math.floor(time * 1000);
+	}
+	else if (smh === 'm') {
+		if (time > 1440) {
+			return message.channel.send('Incorrect time. Please use time below 24 hours.');
+		}
+		time = Math.floor(time * 60000);
+	}
+	else if (smh === 'h') {
+		if (time > 24) {
+			return message.channel.send('Incorrect time. Please use time below 24 hours.');
+		}
+		time = Math.floor(time * 6e+6);
+	}
+	else {
+		return message.channel.send('Incorrect time. Please use s/m/h (second/minute/hour)');
+	}
+
+	if (deleteMessage == 'delete') {
+		for (let index = 3; index < args.length - 1; index++) {
+			userMessage += args[index] + ' ';
+		}
+		message.delete().catch(console.log('Error while using !remind command.'));
+	}
+	else {
+		for (let index = 3; index < args.length; index++) {
+			userMessage += args[index] + ' ';
+		}
+	}
+
+
+	const returnMessage = `<@${authorId}> ${userMessage}`;
+
+	setTimeout(function() {sendMessage(message, returnMessage);}, time);
+};
+
+function sendMessage(message, returnMessage) {
+	message.channel.send(returnMessage);
+}

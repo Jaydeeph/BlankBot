@@ -4,7 +4,6 @@
   "description": "Bot to help the blank!",
   "main": "blank.js",
   "dependencies": {
-    "FileSaver": "^0.10.0",
     "better-sqlite3": "^7.0.1",
     "discord.js": "^12.2.0",
     "enmap": "^5.2.4"
