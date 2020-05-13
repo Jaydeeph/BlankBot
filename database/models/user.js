@@ -21,11 +21,11 @@ const userSchema = new Schema({
 		type: Number,
 	},
 	last_online: {
-		default: Date.now,
+		default: Date.now(),
 		type: Date,
 	},
 	last_wrote: {
-		default: Date.now,
+		default: Date.now(),
 		type: Date,
 	},
 });

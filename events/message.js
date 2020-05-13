@@ -36,7 +36,7 @@ module.exports = async (client, message) => {
 					message.reply(`Aye, congrats you've just leveled up to level ${newLevel}!`);
 				}
 
-				user.last_wrote = Date.now;
+				user.last_wrote = Date.now();
 
 				user.save();
 			}
