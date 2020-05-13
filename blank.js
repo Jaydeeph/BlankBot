@@ -1,3 +1,4 @@
+// Using Discord V12.
 const fs = require('fs');
 const Discord = require('discord.js');
 const { token } = require('./config.json');
