@@ -7,10 +7,10 @@ module.exports = async (client, message) => {
 	// console.log(member);
 
 	if (message.guild) {
-		userModel.createUserIfDoesNotExist(message);
-		userModel.addGoldAndXP(message);
-		userModel.checkUserLevel(message);
-		userModel.addLastWrote(message);
+		await userModel.createUserIfDoesNotExist(message);
+		await userModel.addGoldAndXP(message);
+		await userModel.checkUserLevel(message);
+		await userModel.addLastWrote(message);
 	}
 
 	if(message.content.indexOf(prefix) !== 0) return;
@@ -23,3 +23,4 @@ module.exports = async (client, message) => {
 
 	command.run(client, message, args);
 };
+
