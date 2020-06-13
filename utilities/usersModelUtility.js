@@ -3,15 +3,12 @@ const Users = require('../database/models/user.js');
 module.exports.createUserIfDoesNotExist = async (message) => {
 	Users.findOne({
 		user_id: message.author.id,
-		guild_id: message.guild.id,
 	}, (error, user) => {
 		if (error) console.log(error);
 
 		if (!user) {
 			const newUser = new Users({
 				user_id: message.author.id,
-				guild_id: message.guild.id,
-				guild_name: message.guild.name,
 			});
 
 			newUser.save();
@@ -22,7 +19,6 @@ module.exports.createUserIfDoesNotExist = async (message) => {
 module.exports.addGoldAndXP = async (message) => {
 	Users.findOne({
 		user_id: message.author.id,
-		guild_id: message.guild.id,
 	}, (error, user) => {
 		if (error) console.log(error);
 
@@ -39,7 +35,6 @@ module.exports.addGoldAndXP = async (message) => {
 module.exports.checkUserLevel = async (message) => {
 	Users.findOne({
 		user_id: message.author.id,
-		guild_id: message.guild.id,
 	}, (error, user) => {
 		if (error) console.log(error);
 
@@ -57,7 +52,6 @@ module.exports.checkUserLevel = async (message) => {
 module.exports.addLastWrote = async (message) => {
 	Users.findOne({
 		user_id: message.author.id,
-		guild_id: message.guild.id,
 	}, (error, user) => {
 		if (error) console.log(error);
 
@@ -65,4 +59,25 @@ module.exports.addLastWrote = async (message) => {
 
 		user.save();
 	});
+};
+
+module.exports.addMessagesWrote = async (message) => {
+	Users.findOne({
+		user_id: message.author.id,
+	}, (error, user) => {
+		if (error) console.log(error);
+
+		user.messages_wrote += 1;
+
+		user.save();
+	});
+};
+
+module.exports.getUserStatus = async (userId) => {
+	const user = await Users.findOne({
+		user_id: userId,
+	}, (error) => {
+		if (error) console.log('What what: ' + error);
+	});
+	return user;
 };
