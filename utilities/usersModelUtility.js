@@ -73,11 +73,11 @@ module.exports.addMessagesWrote = async (message) => {
 	});
 };
 
-module.exports.getUserStatus = async (userId) => {
+module.exports.getUser = async (userId) => {
 	const user = await Users.findOne({
 		user_id: userId,
 	}, (error) => {
-		if (error) console.log('What what: ' + error);
+		if (error) console.log(error);
 	});
 	return user;
 };

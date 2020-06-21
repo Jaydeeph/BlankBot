@@ -37,7 +37,7 @@ exports.run = async (client, message, args) => {
 	const foundUserInfo = await utils.findUser(message, requestUsers);
 	await getAllUserInfo(foundUserInfo);
 
-	const mongoUser = await userModel.getUserStatus(userId);
+	const mongoUser = await userModel.getUser(userId);
 
 	avatarEmbed.setColor('#f65c78');
 	avatarEmbed.setTitle(`${userNickname} AKA ${username}'s Stats`);
