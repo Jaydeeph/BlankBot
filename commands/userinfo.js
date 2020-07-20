@@ -17,24 +17,24 @@ let userJoinedTimestamp;
 
 exports.run = async (client, message, args) => {
 
-	let requestUsers;
+	let requestUser;
 	const messageAuthor = message.author.username;
 	const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
 	const avatarEmbed = new MessageEmbed();
 
 	if (!message.mentions.users.size) {
 		if (Object.keys(args).length == 0) {
-			requestUsers = message.author.username;
+			requestUser = message.author.username;
 		}
 		else {
-			requestUsers = args[0];
+			requestUser = args[0];
 		}
 	}
 	else {
-		requestUsers = message.mentions.users.first().username;
+		requestUser = message.mentions.users.first().username;
 	}
 
-	const foundUserInfo = await utils.findUser(message, requestUsers);
+	const foundUserInfo = await utils.fetchUserByQuery(message, requestUser);
 	await getAllUserInfo(foundUserInfo);
 
 	const mongoUser = await userModel.getUser(userId);

@@ -26,6 +26,10 @@ const reactionSchema = new Schema({
 		default: 0,
 		type: Number,
 	},
+	given_bad: {
+		default: 0,
+		type: Number,
+	},
 	given_slap: {
 		default: 0,
 		type: Number,
@@ -115,6 +119,10 @@ const reactionSchema = new Schema({
 		type: Number,
 	},
 	recieved_bully: {
+		default: 0,
+		type: Number,
+	},
+	recieved_bad: {
 		default: 0,
 		type: Number,
 	},

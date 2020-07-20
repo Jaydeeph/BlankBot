@@ -4,11 +4,13 @@
   "description": "Bot to help the blank!",
   "main": "blank.js",
   "dependencies": {
-    "better-sqlite3": "^7.0.1",
+    "better-sqlite3": "^7.1.0",
     "discord.js": "^12.2.0",
     "enmap": "^5.2.4",
+    "giphy-js-sdk-core": "^1.0.6",
     "mongodb": "^3.5.7",
-    "mongoose": "^5.9.11"
+    "mongoose": "^5.9.11",
+    "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {},
   "scripts": {
