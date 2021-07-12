@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 const utils = require('../utilities/utils.js');
-const reactionsUtility = require('../utilities/reactionsModelUtility.js');
+const reactionModel = require('../utilities/reactionsModelUtility.js');
 
 exports.run = async (client, message, args) => {
 	const cakeEmbed = new MessageEmbed();
@@ -26,6 +26,6 @@ exports.run = async (client, message, args) => {
 	cakeEmbed.setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ format: 'webp', dynamic: true, size: 512 }));
 	cakeEmbed.setTimestamp();
 
-	reactionsUtility.cakeCount(reactionFromUserUsername, reactionToUserUsername);
+	await reactionModel.cakeCount(reactionFromUserId, reactionToUserId);
 	message.channel.send(cakeEmbed);
 };

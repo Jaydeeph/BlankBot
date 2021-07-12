@@ -4,23 +4,24 @@ const utils = require('../utilities/utils.js');
 const userModel = require('../utilities/usersModelUtility.js');
 
 let roles = [];
-let userId;
-let userTag;
-let username;
+let userId = 000000000000000000;
+let userTag = 'DeletedUser#0000';
+let username = 'DeletedUser';
 let userAvatar;
-let userStatus;
-let userCreated;
-let userNickname;
-let customStatus;
-let customStatusCreated;
+let userStatus = 'N/A';
+let userCreated = 'N/A';
+let userNickname = 'N/A';
+let customStatus = 'N/A';
+let customStatusCreated = 'N/A';
 let userJoinedTimestamp;
 
 exports.run = async (client, message, args) => {
-
+	console.log('running this command');
 	let requestUser;
 	const messageAuthor = message.author.username;
 	const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
 	const avatarEmbed = new MessageEmbed();
+
 
 	if (!message.mentions.users.size) {
 		if (Object.keys(args).length == 0) {
@@ -38,6 +39,10 @@ exports.run = async (client, message, args) => {
 	await getAllUserInfo(foundUserInfo);
 
 	const mongoUser = await userModel.getUser(userId);
+
+	if (mongoUser.joined_discord != userCreated) {
+		userModel.addJoinedDiscord(userId, userCreated);
+	}
 
 	avatarEmbed.setColor('#f65c78');
 	avatarEmbed.setTitle(`${userNickname} AKA ${username}'s Stats`);
@@ -80,6 +85,7 @@ exports.run = async (client, message, args) => {
 	message.channel.send(avatarEmbed);
 };
 
+// For some reason activities array is empty and presence is offline. Probably broken, just like the whole Discord programming team :^).
 async function getAllUserInfo(foundUserInfo) {
 	const guildMemberInfo = foundUserInfo.first();
 
@@ -94,8 +100,8 @@ async function getAllUserInfo(foundUserInfo) {
 	userStatus = guildMemberInfo.presence.status;
 	userCreated = userInfo.createdTimestamp;
 	userNickname = guildMemberInfo.nickname;
-	customStatus = guildMemberInfo.presence.activities[0].state;
-	customStatusCreated = guildMemberInfo.presence.activities[0].createdTimestamp;
+	//customStatus = guildMemberInfo.presence.activities[0].state;
+	//customStatusCreated = guildMemberInfo.presence.activities[0].createdTimestamp;
 	userJoinedTimestamp = guildMemberInfo.joinedTimestamp;
 
 	let count = 0;

@@ -4,13 +4,13 @@ const userModel = require('../utilities/usersModelUtility.js');
 module.exports = async (client, message) => {
 	if(message.author.bot) return;
 
-	if (message.guild) {
-		await userModel.createUserIfDoesNotExist(message);
-		await userModel.addGoldAndXP(message);
-		await userModel.checkUserLevel(message);
-		await userModel.addLastWrote(message);
-		await userModel.addMessagesWrote(message);
-	}
+	// if (message.guild) {
+	// 	await userModel.createUserIfDoesNotExist(message.author.id);
+	// 	await userModel.addGoldAndXP(message.author.id);
+	// 	await userModel.checkUserLevel(message.author.id, message);
+	// 	await userModel.addLastWrote(message.author.id);
+	// 	await userModel.addMessagesWrote(message.author.id);
+	// }
 
 	if(message.content.indexOf(prefix) !== 0) return;
 

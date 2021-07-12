@@ -1,6 +1,11 @@
 const GphApiClient = require('giphy-js-sdk-core');
+const got = require('got');
+const TorrentSearchApi = require('torrent-search-api');
+
 const { giphy_api_key } = require('../config.json');
+const { omdb_api } = require('../config.json');
 const giphyClient = GphApiClient(giphy_api_key);
+
 
 module.exports.fetchUserByQuery = async (message, name) => {
 	const member = await message.guild.members.fetch({ query: name, limit: 1 });
@@ -24,6 +29,16 @@ module.exports.getIdFromMention = async (mention) => {
 
 		return mention;
 	}
+};
+
+module.exports.addArgsTogether = async (args) => {
+	let sentence = '';
+
+	args.forEach(element => {
+		sentence += element + ' ';
+	});
+
+	return sentence;
 };
 
 module.exports.giphySearch = async (giphyType, options) => {
@@ -54,6 +69,47 @@ module.exports.giphyId = async (gifId) => {
 		.catch((error) => {
 			console.log(error);
 		});
+};
+
+module.exports.searchMovieByTitle = async (movieName) => {
+    omdbApiRequest = 'https://www.omdbapi.com/?apikey=' + omdb_api + '&type=movie&s=' + movieName;
+
+	return (async () => {
+		try {
+			const { body } = await got(omdbApiRequest);
+			return JSON.parse(body).Search;
+		} catch (error) {
+			console.log(error.response.body);
+		}
+	})();
+};
+
+module.exports.findMovieByImdbId = async (ImdbId) => {
+	omdbApiRequest = 'https://www.omdbapi.com/?apikey=' + omdb_api + '&type=movie&i=' + ImdbId;
+
+	return (async () => {
+		try {
+			const { body } = await got(omdbApiRequest);
+			return JSON.parse(body);
+		} catch (error) {
+			console.log(error.response.body);
+		}
+	})();
+};
+
+module.exports.searchMovieTorrent = async (movieName, queryLimit) => {
+	TorrentSearchApi.disableAllProviders();
+	TorrentSearchApi.enableProvider('1337x');
+	TorrentSearchApi.enableProvider('KickassTorrents');
+	TorrentSearchApi.enableProvider('Rarbg');
+
+	const torrents = await TorrentSearchApi.search(movieName, 'Movies', queryLimit);
+	return torrents;
+};
+
+module.exports.deleteMessage = async () => {
+	//message.guild.channels.cache.get(message.channel.id).messages.delete(message);
+    //message.guild.channels.cache.get(message.channel.id).messages.fetch('795982189531103232').then(mssge => mssge.delete());
 };
 
 module.exports.getRandomNumber = async (min, max) => {

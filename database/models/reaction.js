@@ -94,10 +94,6 @@ const reactionSchema = new Schema({
 		default: 0,
 		type: Number,
 	},
-	given_hump: {
-		default: 0,
-		type: Number,
-	},
 	recieved_cake: {
 		default: 0,
 		type: Number,
@@ -189,11 +185,7 @@ const reactionSchema = new Schema({
 	recieved_spank: {
 		default: 0,
 		type: Number,
-	},
-	recieved_hump: {
-		default: 0,
-		type: Number,
-	},
+	}
 });
 
 module.exports = model('Reaction', reactionSchema);

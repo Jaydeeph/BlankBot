@@ -439,24 +439,3 @@ module.exports.spankCount = async (reactionFromUserId, reactionToUserId) => {
 		reaction.save();
 	});
 };
-
-module.exports.humpCount = async (reactionFromUserId, reactionToUserId) => {
-	Reactions.findOne({
-		user_id: reactionFromUserId,
-	}, (error, reaction) => {
-		if (error) console.log(error);
-
-		reaction.given_hump += 1;
-		reaction.save();
-	});
-
-	Reactions.findOne({
-		user_id: reactionToUserId,
-	}, (error, reaction) => {
-		if (error) console.log(error);
-
-		reaction.recieved_hump += 1;
-		reaction.save();
-	});
-};
-
